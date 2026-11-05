@@ -1,0 +1,27 @@
+Lab Assignment 4 — Question #1
+Security weaknesses in the original Lab 1 password authentication system
+
+1. Unsalted, fast password hashing
+The original program hashes passwords with SHA-256 and stores the resulting digest. 
+SHA-256 is a general-purpose hash, not a password-hashing algorithm. 
+It is intentionally fast, which makes large-scale guessing attacks easier if the password database is stolen. 
+The same password also produces the same hash for every account because no salt is used. 
+An attacker can use precomputed tables and identify users who reused passwords.
+
+2. Plaintext security answers
+The original program stores each security answer directly in memory as ordinary text. 
+Anyone who can inspect the user data can read those answers. 
+Security answers may also be reused on other websites, so exposing them can compromise more than this application.
+
+3. No protection against repeated login guesses
+The original login method allows unlimited attempts. 
+An attacker can repeatedly try likely passwords or run an automated brute-force/dictionary attack without being slowed by the application.
+
+4. Account enumeration
+The original program prints “User not found” during password recovery, which reveals whether a username is registered. 
+This can help an attacker build a list of valid accounts. 
+Login should also use the same generic failure message for an unknown username and an incorrect password.
+
+5. No persistent database or production-grade recovery
+The user collection is stored only in memory, so all accounts disappear when the program exits. 
+
